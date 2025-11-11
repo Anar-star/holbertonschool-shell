@@ -1,5 +1,2 @@
 #!/bin/bash
-result=1
-for i in $(seq "$LOVE"); do
-  result=$((result * BREATH))
-echo "$result"
+echo $((BREATH * $(printf "BREATH * %.0s" $(seq 1 $(($LOVE - 1))))))
