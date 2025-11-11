@@ -1,2 +1,5 @@
 #!/bin/bash
-echo "$BREATH ^ $LOVE" | bc
+result=1
+for i in $(seq "$LOVE"); do
+  result=$((result * BREATH))
+echo "$result"
