@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $((BREATH * $(printf "BREATH * %.0s" $(seq 1 $(($LOVE - 1))))))
+echo $((BREATH ** LOVE))
