@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# This script displays the content of the current directory, showing only the part of the name after the first dash.
+
+# Loop through all non-hidden files and directories in the current directory
+for FILE in *; do
+    # Check if the file name contains a dash.
+    # The requirement example implies that files without a dash (like the script itself) 
+    # should still be processed, but let's stick to the output format given.
+    
+    # We use parameter expansion: 
+    # ${FILE#*-} removes the shortest match of '*-' from the beginning of FILE.
+    # If the file is '100-read_and_cut', ${FILE#*-} gives 'read_and_cut'.
+    # If the file is '8-for_ls', ${FILE#*-} gives 'for_ls'.
+    # Note: If there are multiple dashes (e.g., 101-tell_the_story_of-passwd), 
+    # this technique only removes everything up to the first dash.
+
+    echo "${FILE#*-}"
+done
