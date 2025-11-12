@@ -1,18 +1,9 @@
 #!/usr/bin/env bash
 # This script reads /etc/passwd and displays the username, user ID, and home directory.
 
-# Pipe the contents of /etc/passwd into a while loop
-# We set IFS to colon (:) to split the input line by the delimiter.
-# We assign the fields to variables, reading only the necessary ones:
-# 1st field -> USERNAME
-# 3rd field -> USER_ID (skip 2nd field which is X)
-# 6th field -> HOME_DIR (skip 4th and 5th fields)
-while IFS=: read -r USERNAME X USER_ID GID INFO HOME_DIR SHELL; do
+# Notice that unused fields are now named '_' to suppress SC2034
+while IFS=: read -r USERNAME _ USER_ID _ _ HOME_DIR SHELL; do
     
-    # We check if USERNAME is set to ensure we don't process potential blank lines at EOF
     if [ -n "$USERNAME" ]; then
-        # Display the required fields separated by a colon
         echo "${USERNAME}:${USER_ID}:${HOME_DIR}"
     fi
-
-done < /etc/passwd

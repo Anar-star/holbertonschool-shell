@@ -1,0 +1,11 @@
+  GNU nano 6.2                                      11-read_and_cut                             ch is X)
+# 6th field -> HOME_DIR (skip 4th and 5th fields)
+while IFS=: read -r USERNAME X USER_ID GID INFO HOME_DIR SHELL; do
+    
+    # We check if USERNAME is set to ensure we don't process potential blank lines at EOF
+    if [ -n "$USERNAME" ]; then
+        # Display the required fields separated by a colon
+        echo "${USERNAME}:${USER_ID}:${HOME_DIR}"
+    fi
+
+done < /etc/passwd
