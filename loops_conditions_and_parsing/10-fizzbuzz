@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This script displays numbers from 1 to 100 following the FizzBuzz rules.
+
+# Loop from 1 to 100
+for i in {1..100}; do
+    
+    # Calculate remainders for 3, 5, and 15
+    # The modulus operator is % inside arithmetic expansion
+    
+    # Check for multiples of 3 AND 5 (15) first
+    if [ $((i % 15)) -eq 0 ]; then
+        echo "FizzBuzz"
+    
+    # Check for multiples of 3
+    elif [ $((i % 3)) -eq 0 ]; then
+        echo "Fizz"
+    
+    # Check for multiples of 5
+    elif [ $((i % 5)) -eq 0 ]; then
+        echo "Buzz"
+    
+    # Otherwise, print the number
+    else
+        echo "$i"
+    fi
+    
+done
