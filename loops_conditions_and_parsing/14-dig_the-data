@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script groups visitors by IP and HTTP status code, counts occurrences, and sorts the results.
+
+# 1. Use awk to extract the IP ($1) and Status Code ($9) from the log file.
+# 2. Pipe the output to 'sort' to group identical lines together.
+# 3. Pipe the sorted output to 'uniq -c' to count the occurrences of each unique IP/Code combination.
+# 4. Pipe the result to 'sort -rn' (reverse numeric sort) to order by occurrence number (count) from greatest to lowest.
+awk '{ print $1, $9 }' apache-access.log | sort | uniq -c | sort -rn
