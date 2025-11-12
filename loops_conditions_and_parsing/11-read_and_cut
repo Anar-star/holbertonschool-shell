@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # This script reads /etc/passwd and displays the username, user ID, and home directory.
 
-# Notice that unused fields are now named '_' to suppress SC2034
+# Notice that unused fields are named '_' to suppress SC2034
 while IFS=: read -r USERNAME _ USER_ID _ _ HOME_DIR SHELL; do
     
     if [ -n "$USERNAME" ]; then
         echo "${USERNAME}:${USER_ID}:${HOME_DIR}"
     fi
+
+done < /etc/passwd
