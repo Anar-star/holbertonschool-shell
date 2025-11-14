@@ -1,2 +1,9 @@
 #!/usr/bin/env bash
+
+This script prints the Process ID (PID) of the shell that is running it.
+
 echo $$
+
+$$ is a special Bash variable that holds the PID of the current shell.
+
+The 'echo' command is needed to display the value of the variable.
