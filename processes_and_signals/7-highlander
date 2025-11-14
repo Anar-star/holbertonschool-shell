@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Displays "To infinity and beyond" indefinitely and displays "I am invincible!!!" on SIGTERM.
+
+# Define the function to run when SIGTERM (signal 15) is received.
+invincible_message() {
+    echo "I am invincible!!!"
+}
+
+# Trap the SIGTERM signal (15) and execute the invincible_message function.
+trap 'invincible_message' SIGTERM
+
+# Infinite loop
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
