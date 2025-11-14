@@ -1,8 +1,4 @@
-!/usr/bin/env bash
-# Stops the 4-to_infinity_and_beyond process using the kill command.
-
-# Find the PID of the running script (excluding the current script running pgrep itself)
+#!/usr/bin/env bash
+# Stops the 4-to_infinity_and_beyond process.
 PID=$(pgrep -f "4-to_infinity_and_beyond")
-
-# Kill the found PID
 kill $PID
