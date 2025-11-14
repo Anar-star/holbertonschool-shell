@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Daemon script that writes "I am alive!" indefinitely and manages its own PID file.
+
+PID_FILE="/var/run/my_process.pid"
+OUTPUT_FILE="/tmp/my_process"
+
+# Write PID to file
+echo $$ > "$PID_FILE"
+
+# Infinite loop to write to output file every 2 seconds
+while true; do
+    echo "I am alive!" >> "$OUTPUT_FILE"
+    sleep 2
+done

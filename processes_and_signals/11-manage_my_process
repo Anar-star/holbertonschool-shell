@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Init script to manage the manage_my_process daemon.
+
+# Define the paths and commands
+DAEMON_SCRIPT="./manage_my_process"
+PID_FILE="/var/run/my_process.pid"
+
+# --- Function Definitions ---
+
+start_process() {
+    # Starts the daemon in the background and redirects output to /dev/null
+    # It must be run in the background (using &) to detach from the terminal.
+    "$DAEMON_SCRIPT" &
+    echo "manage_my_process started"
+}
+
+stop_process() {
+    # Check if PID file exists
+    if [ -f "$PID_FILE" ]; then
+        # Read the PID from the file
+        PID=$(cat "$PID_FILE")
+        
+        # Send SIGTERM to the process
+        kill "$PID" 2>/dev/null
+        
+        # Delete the PID file after sending the signal
+        rm -f "$PID_FILE"
+        echo "manage_my_process stopped"
+    else
+        # If the PID file doesn't exist, we assume it's stopped
+        echo "manage_my_process stopped"
+    fi
+}
+
+# --- Main Logic using Case Statement ---
+
+case "$1" in
+    start)
+        start_process
+        ;;
+    stop)
+        stop_process
+        ;;
+    restart)
+        stop_process
+        start_process
+        echo "manage_my_process restarted"
+        ;;
+    *)
+        # Default case for invalid or missing arguments
+        echo "Usage: manage_my_process {start|stop|restart}"
+        ;;
+esac
