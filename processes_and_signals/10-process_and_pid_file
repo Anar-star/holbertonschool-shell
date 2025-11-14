@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Creates a PID file, runs indefinitely, and traps SIGTERM, SIGINT, and SIGQUIT.
+
+PID_FILE="/var/run/myscript.pid"
+
+# --- Signal Handler Functions ---
+
+# Function for graceful cleanup and termination (used by SIGTERM and SIGQUIT)
+cleanup_and_exit() {
+    # Check if the PID file exists before attempting to remove it
+    if [ -f "$PID_FILE" ]; then
+        rm -f "$PID_FILE"
+        echo "Cleanup complete. Terminating."
+    fi
+    exit 0
+}
+
+# Function for SIGTERM (signal 15) - Standard termination
+term_handler() {
+    echo "I hate the kill command"
+    cleanup_and_exit
+}
+
+# Function for SIGINT (signal 2 - Ctrl+C)
+int_handler() {
+    echo "Y U no love me?!"
+}
+
+# --- Main Script Execution ---
+
+# 1. Create the PID file and write the current PID ($$) to it
+echo $$ > "$PID_FILE"
+
+# 2. Set up traps
+trap 'term_handler' SIGTERM  # Signal 15
+trap 'int_handler' SIGINT   # Signal 2 (Ctrl+C)
+trap 'cleanup_and_exit' SIGQUIT # Signal 3 (Ctrl+\)
+
+# 3. Infinite loop
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
